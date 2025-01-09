@@ -55,9 +55,9 @@
                 </div>
             </div>
 
-            <div v-if="selectedPost?.showTags" class="w-full flex justify-end gap-2 mt-2">
+            <div v-if="selectedPost?.showTags" class="w-full mt-1">
                 <button v-for="tag in selectedPost?.tags" :key="tag" @click="router.replace(`/search/${tag}`)"
-                    class="border border-black py-1 px-2 hover:bg-black hover:text-white duration-200 rounded">{{ tag
+                    class="border border-black mr-2 mt-2 py-1 px-2 hover:bg-black hover:text-white duration-200 rounded">{{ tag
                     }}</button>
             </div>
 
