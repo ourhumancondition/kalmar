@@ -1,63 +1,53 @@
-// Types
-import type { NuxtConfig } from "@nuxt/types"
+// https://nuxt.com/docs/api/configuration/nuxt-config
+import Aura from "@primevue/themes/aura";
 
-// Base config
-import buildModules from "./config/buildModules"
-import components from "./config/components"
-import generate from "./config/generate"
-import css from "./config/css"
-import head from "./config/head"
-import loading from "./config/loading"
-import modules from "./config/modules"
-import plugins from "./config/plugins"
-import publicRuntimeConfig from "./config/publicRuntimeConfig"
+export default defineNuxtConfig({
+  modules: [
+    '@primevue/nuxt-module',
+    '@pinia/nuxt',
+    '@vee-validate/nuxt',
+    '@vueuse/nuxt',
+    '@vueuse/motion/nuxt'
+  ],
 
-// Specific module options
-import vite from "./config/modules/vite"
-import feed from "./config/modules/feed"
+  css: [
+    "./assets/style.css",
+  ],
 
-// Hooks
-import { generateDone } from "./hooks/generate/done"
+  app: {
+    head: {
+      charset: "utf-8",
+      viewport: 'width=device-width, initial-scale=1',
+      title: "KALMAR",
+      link: [
+        { href: "./logo.png", rel: "icon" }
+      ]
+    }
+  },
 
-// Constants
-const isDev = process.env.NODE_ENV === "development"
+  primevue: {
+    options: {
+      theme: {
+        preset: Aura,
+        options: {
+          cssLayer: {
+            name: 'primevue',
+            order: 'tailwind-base, tailwind-utilities, primevue',
+          },
+          darkModeSelector: ".dark"
+        }
+      }
+    },
+    autoImport: true,
+  },
 
-const Config: NuxtConfig = {
-  // Constant options
-  rootDir: "./",
-  srcDir: "src",
-  target: "static",
-
-  /*
-    Disabling server-side rendering on development mode because
-    Vite module currently doesn't work when SSR is enabled. This
-    might cause some issues and/or hydration errors but will be
-    effective enough to help you develop easier.
-  */
-  ssr: !isDev,
-
-  // Imported options
-  head,
-  loading,
-  buildModules,
-  components,
-  generate,
-  css,
-  modules,
-  plugins,
-  publicRuntimeConfig,
-
-  hooks: {
-    generate: {
-      async done(generator) {
-        await generateDone(generator)
-      },
+  postcss: {
+    plugins: {
+      tailwindcss: {},
+      autoprefixer: {},
     },
   },
 
-  // Modules
-  vite,
-  feed,
-}
-
-export default Config
+  ssr: false,
+  compatibilityDate: '2024-08-27'
+})
