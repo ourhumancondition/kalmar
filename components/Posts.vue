@@ -5,7 +5,7 @@
             <div>
                 <div class="pb-3 border-b text-zinc-500 text-sm tracking-wider">
                     <div>
-                        {{ created(post) }}<span v-if="post?.showAuthor" class="text-zinc-800"> by {{ post?.author }}</span>
+                        {{ manualCreated(post) ? manualCreated(post) : created(post) }}<span v-if="post?.showAuthor" class="text-zinc-800"> by {{ post?.author }}</span>
                     </div>
 
                     <div class="flex text-xs gap-3 mt-1">
@@ -84,6 +84,7 @@ const { posts } = storeToRefs(postsStore);
 const getFormattedDate = useDateFormatter();
 
 const created = (post: any) => getFormattedDate(post?.created);
+const manualCreated = (post: any) => post?.manualCreated ? getFormattedDate(post?.manualCreated) : "";
 
 const getThesePosts = async () => {
     try {

@@ -29,10 +29,10 @@
 
                 <div class="flex flex-col text-xs gap-1 my-2 font-bold tracking-wider">
                     <span class="flex items-center gap-1">
-                        Created at {{ created }}<span v-if="selectedPost?.showAuthor">by {{ selectedPost?.author
+                        Created at {{ manualCreated ? manualCreated : created }}<span v-if="selectedPost?.showAuthor">by {{ selectedPost?.author
                             }}</span>
                     </span>
-                    <span class="flex items-center gap-1">
+                    <span v-if="selectedPost?.showUpdateTime" class="flex items-center gap-1">
                         Updated at {{ updated }}
                     </span>
                 </div>
@@ -82,6 +82,7 @@ const { getPost, addViews } = postsStore;
 const getFormattedDate = useDateFormatter();
 
 const created = computed(() => getFormattedDate(selectedPost.value?.created));
+const manualCreated = computed(() => selectedPost.value?.manualCreated ? getFormattedDate(selectedPost.value?.manualCreated) : "");
 const updated = computed(() => getFormattedDate(selectedPost.value?.updated));
 
 const id = route.params?.id as string;
