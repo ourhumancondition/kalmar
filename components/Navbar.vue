@@ -18,19 +18,11 @@
                 <div class="hidden w-full md:block md:w-auto" id="navbar-default">
                     <ul class="flex gap-5 text-zinc-100 font-bold">
 
-                        <li v-if="otherPages.length !== 0" @mouseenter="othersDropdown = true" @click="othersDropdown = !othersDropdown" class="cursor-pointer">
-                            <div>Others</div>
-                            <ul @mouseleave="othersDropdown = false" :class="othersDropdown ? 'grid' : 'hidden'"
-                                class="w-[200px] py-3 bg-zinc-700/50 mt-3 fixed top-[68px] justify-center gap-1 rounded-md">
-
-                                <li v-for="page in otherPages" :key="page?.id" class="p-3 w- hover:bg-zinc-600/50 rounded-md">
-                                    <NuxtLink :to="`/${page?.pageRoute}`">{{ page?.pageTitle }}</NuxtLink>
-                                </li>
-                            </ul>
-                        </li>
-
+                        
                         <li v-if="categoryPages.length !== 0" @mouseenter="categoriesDropdown = true" @click="categoriesDropdown = !categoriesDropdown" class="cursor-pointer">
-                            <div>Categories</div>
+                            <div>
+                                <NuxtLink to="/blog">Blog</NuxtLink>    
+                            </div>
                             <ul @mouseleave="categoriesDropdown = false" :class="categoriesDropdown ? 'grid' : 'hidden'"
                                 class="w-[200px] py-3 bg-zinc-700/50 mt-3 fixed top-[68px] justify-center gap-1 rounded-md">
 
@@ -39,11 +31,18 @@
                                 </li>
                             </ul>
                         </li>
+                        
+                        <li v-if="otherPages.length !== 0" @mouseenter="othersDropdown = true" @click="othersDropdown = !othersDropdown" class="cursor-pointer">
+                            <div>Pages</div>
+                            <ul @mouseleave="othersDropdown = false" :class="othersDropdown ? 'grid' : 'hidden'"
+                                class="w-[200px] py-3 bg-zinc-700/50 mt-3 fixed top-[68px] justify-center gap-1 rounded-md">
 
-                        <li>
-                            <NuxtLink to="/blog">Blog</NuxtLink>
+                                <li v-for="page in otherPages" :key="page?.id" class="p-3 w- hover:bg-zinc-600/50 rounded-md">
+                                    <NuxtLink :to="`/${page?.pageRoute}`">{{ page?.pageTitle }}</NuxtLink>
+                                </li>
+                            </ul>
                         </li>
-
+                        
                         <li>
                             <NuxtLink to="/">Home</NuxtLink>
                         </li>
